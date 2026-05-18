@@ -264,7 +264,92 @@ Registration is now open until 20 July 2025. To register your team please use th
 <!-- Image captioning, the automatic generation of natural language descriptions for images, is a key technology powering applications such as accessibility tools, image search, social media automation, and human-robot interaction. While significant advancements have been achieved in English and other widely spoken languages, Arabic image captioning remains underexplored.  The task poses unique linguistic challenges—not only due to Arabic’s complex morphology and syntax, but also because of its rich cultural diversity and wide range of dialectal variations. This shared task aims to advance Arabic image captioning by achieving two key goals: (1) creating the first open-source, manually-captioned dataset developed natively in Arabic. and (2) fostering progress in Arabic NLP by encouraging researchers to develop novel multimodal models in this emerging and impactful field. -->
 </p>
 
-<p><b><u>Subtask 1:</u></b> <span class="brand"> Image Captioning Datathon</span><br>
+<h2><b>Task 1: Ayn-VQA — Culturally Grounded Arabic Visual Question Answering and Hallucination Detection</b></h2>
+
+<p><b>Overview:</b>
+<span class="text-justify">Ayn-VQA is built on OASIS (EverydayMMQA framework), a large-scale multimodal dataset spanning 18 MENA countries with approximately 0.92 million images, 14.8 million QA pairs, and 3.7 million spoken questions in MSA, Egyptian Arabic, and Levantine Arabic. The task is organised into three tracks covering spoken question answering, textual question answering, and image-grounded hallucination detection. Each track is offered across all three Arabic varieties.
+</span></p>
+
+<hr>
+
+<p><b><u>Track 1:</u></b> <span class="brand">Spoken MCQ Visual Question Answering</span></p>
+
+<p><b>Objective:</b>
+<span class="text-justify">This track evaluates how well systems handle culturally grounded Arabic visual question answering when the question is delivered as speech. Given an image and a spoken Arabic question about its content, participants must predict the correct answer from multiple-choice options. The track is offered in MSA, Egyptian Arabic, and Levantine Arabic, and tests semantic understanding under the additional challenges of speech recognition and prosodic variation across dialects.
+</span></p>
+
+<p><b>Dataset:</b>
+<span class="text-justify">This track uses a subset of OASIS (EverydayMMQA framework), a large-scale multimodal dataset of images paired with spoken and textual question-answer instances across 18 MENA countries. The shared task subset contains approximately 50,000 to 100,000 images selected to preserve diversity across language variety, country, and topic. Participants will receive four splits: training, development, a dev-test set without labels for leaderboard-based progress tracking, and a hidden test set for final ranking. Data will be distributed via CodaLab after registration.
+</span></p>
+
+<p><b>Submission Format:</b>
+<span class="text-justify">Participants should submit a TSV file containing one prediction per line. The file must include the following columns:
+</span></p>
+<ul style="font-size: 16px;" class="lists">
+  <li><b>id</b></li>
+  <li><b>label</b> (predicted answer option: A, B, C, or D)</li>
+</ul>
+<p class="text-justify">The file should be uploaded to <a href="https://codalab.lisn.upsaclay.fr/competitions/XXXXXX">CodaLab</a>. Submissions will be automatically validated. Incomplete submissions will be flagged.</p>
+
+<p><b>Evaluation:</b>
+<span class="text-justify">The official metric is accuracy: the proportion of questions for which the system selects the correct answer option. F1-score will also be reported as a secondary metric. Systems are ranked by accuracy on the hidden test set.
+</span></p>
+
+<hr>
+
+<p><b><u>Track 2:</u></b> <span class="brand">Textual MCQ Visual Question Answering</span></p>
+
+<p><b>Objective:</b>
+<span class="text-justify">This track evaluates culturally grounded Arabic visual question answering using written text input. Given an image and a written Arabic question about its content, participants must predict the correct answer from multiple-choice options. By removing speech as a variable, this track provides a clean measure of visual grounding and cultural understanding across MSA, Egyptian Arabic, and Levantine Arabic.
+</span></p>
+
+<p><b>Dataset:</b>
+<span class="text-justify">Same OASIS subset as Track 1, using the textual question modality. Participants receive the same four splits: training, development, dev-test (unlabeled), and hidden test. Data will be distributed via CodaLab after registration.
+</span></p>
+
+<p><b>Submission Format:</b>
+<span class="text-justify">Participants should submit a TSV file containing one prediction per line. The file must include the following columns:
+</span></p>
+<ul style="font-size: 16px;" class="lists">
+  <li><b>id</b></li>
+  <li><b>label</b> (predicted answer option: A, B, C, or D)</li>
+</ul>
+<p class="text-justify">The file should be uploaded to <a href="https://codalab.lisn.upsaclay.fr/competitions/XXXXXX">CodaLab</a>. Submissions will be automatically validated. Incomplete submissions will be flagged.</p>
+
+<p><b>Evaluation:</b>
+<span class="text-justify">The official metric is accuracy. F1-score will also be reported as a secondary metric. Systems are ranked by accuracy on the hidden test set.
+</span></p>
+
+<hr>
+
+<p><b><u>Track 3:</u></b> <span class="brand">Image-Grounded Hallucination Detection</span></p>
+
+<p><b>Objective:</b>
+<span class="text-justify">This track evaluates whether systems can distinguish image-supported statements from plausible but visually unsupported alternatives. Each instance presents an image together with one grounded true statement (Q+) and two culturally plausible but visually incorrect counterfactual statements (Q-). Participants must judge each statement as true or false. Distractors are drawn from nearby countries, related traditions, visually similar landmarks, and culturally associated objects, making this a genuinely challenging test of visual grounding rather than cultural pattern matching.
+</span></p>
+
+<p><b>Dataset:</b>
+<span class="text-justify">A contrastive subset of OASIS where each example is structured as a triplet: one grounded true statement and two plausible but visually unsupported counterfactuals. The same four splits apply: training, development, dev-test (unlabeled), and hidden test. Data will be distributed via CodaLab after registration.
+</span></p>
+
+<p><b>Submission Format:</b>
+<span class="text-justify">Participants should submit a TSV file containing one prediction per line. The file must include the following columns:
+</span></p>
+<ul style="font-size: 16px;" class="lists">
+  <li><b>id</b></li>
+  <li><b>triplet_id</b></li>
+  <li><b>label</b> (True or False)</li>
+</ul>
+<p class="text-justify">The file should be uploaded to <a href="https://codalab.lisn.upsaclay.fr/competitions/XXXXXX">CodaLab</a>. Submissions will be automatically validated. Incomplete submissions will be flagged.</p>
+
+<p><b>Evaluation:</b>
+<span class="text-justify">The official metric is Contrastive Instability (CI), which measures whether a system resolves the full triplet consistently rather than individual statements in isolation:</span></p>
+
+<p style="text-align:center;"><b>CI = 1 - N<sub>consistent</sub> / N<sub>partial</sub></b></p>
+
+<p class="text-justify">where N<sub>partial</sub> is the number of triplets for which the system gets at least one statement correct, and N<sub>consistent</sub> is the number of those triplets fully and correctly resolved. Lower CI is better. Per-statement accuracy is also reported as a secondary metric.</p>
+
+<!-- <p><b><u>Subtask 1:</u></b> <span class="brand"> Image Captioning Datathon</span><br>
 
 <p><b>Objective:</b>
 <span class="text-justify">This subtask aims to create an open-source image dataset with captions that are culturally appropriate and naturally written in Arabic. The goal is to support the development of Arabic-native image captioning resources by encouraging participants to manually craft meaningful, context-aware descriptions that reflect Arabic culture and language use.
@@ -302,7 +387,7 @@ Captions must be written manually—<b>without the use of generative AI tools</b
 
 <p>The guidelines will be assessed on their soundness and thoroughness. The more robust your guidelines, the higher your evaluation score.</p>
 </p>
-<p>You may refer to a <a href="https://drive.google.com/drive/folders/1UK5DXHKEagi7hlVjL53obWGFueSEstHz?usp=sharing">sample set of images</a> and their captions.</p>
+<p>You may refer to a <a href="https://drive.google.com/drive/folders/1UK5DXHKEagi7hlVjL53obWGFueSEstHz?usp=sharing">sample set of images</a> and their captions.</p> -->
 
 
 
@@ -470,9 +555,6 @@ For any questions related to this task, please contact the organizers directly u
 <p>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Samir Abdaljalil, <a href="mailto:sabdaljalil@tamu.edu">sabdaljalil@tamu.edu</a>, Texas A&M University<br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Firoj Alam, <a href="mailto:firojalam@gmail.com">firojalam@gmail.com</a>, Qatar Computing Research Institute, HBKU<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Samir Abdaljalil, <a href="mailto:sabdaljalil@tamu.edu">sabdaljalil@tamu.edu</a>, Texas A&M University<br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Samir Abdaljalil, <a href="mailto:sabdaljalil@tamu.edu">sabdaljalil@tamu.edu</a>, Texas A&M University<br>
-
 </p>
 
 </b></div><b>

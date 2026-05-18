@@ -392,7 +392,7 @@ Captions must be written manually—<b>without the use of generative AI tools</b
 
 
 
-<p><b><u>Subtask 2:</u></b> <span class="brand">Image Captioning Models Evaluation</span><br><p>
+<!-- <p><b><u>Subtask 2:</u></b> <span class="brand">Image Captioning Models Evaluation</span><br><p>
 
 
 
@@ -456,9 +456,6 @@ Captions must be written manually—<b>without the use of generative AI tools</b
   </tbody>
 </table>
 
-
-<!-- <p>To support reproducibility and fair comparison, both the baseline outputs and the evaluation scripts will be made publicly available.
-</p> -->
 <br>
 
 <p>
@@ -521,7 +518,72 @@ The evaluation results are in the following table:
     <tr><td>Fine-tuned Qwen 2.5-VL 7B</td><td> 30.82%</td></tr>
    
   </tbody>
-</table>
+</table> -->
+<h2><b>Task 2: CRAI-Bench — Cultural Accuracy Evaluation for Text-to-Image Generation</b></h2>
+
+<p><b>Overview:</b>
+<span class="text-justify">CRAI-Bench evaluates whether AI-generated images faithfully represent Qatari and Arab cultural scenes. The task introduces the Cultural Representation Accuracy Index (CRAI), a five-dimensional scoring framework, and is structured into two complementary subtasks: one targeting automatic cultural accuracy evaluation, and one targeting culturally grounded caption generation. A pilot study of 100 image-caption pairs shows that prompt specificity has a statistically significant effect on cultural accuracy (Friedman χ²(4) = 55.25, p &lt; .001, Kendall's W = 0.69), and that LLM-as-a-judge overestimates cultural accuracy compared with human evaluators by 0.29 points (mean LLM 0.73 vs. human 0.44).
+</span></p>
+
+<hr>
+
+<p><b><u>Subtask A:</u></b> <span class="brand">Cultural Accuracy Evaluation</span></p>
+
+<p><b>Objective:</b>
+<span class="text-justify">Given a reference image of a Qatari cultural scene, a culturally grounded English image caption, and an AI-generated image produced from that caption, participants must produce a CRAI score in [0,1] across five dimensions. Systems are evaluated against human-annotated gold CRAI scores. This subtask benchmarks LLM-as-a-judge approaches against human cultural annotation in Qatari contexts.
+</span></p>
+
+<p><b>Dataset:</b>
+<span class="text-justify">The dataset consists of reference image-caption-generated image triples grounded in Qatari culture across five categories: people and traditional attire; objects and natural elements; architecture and built environment; cultural activities and practices; and historical and cultural context. Reference images were sourced from open-access platforms (Pexels, Pixabay, Unsplash) and verified for cultural authenticity by native Qatari cultural consultants. Generated images were produced using gpt-image-1 (1024x1024px). The dataset is split approximately 60/20/20 across training, development, and hidden test sets. Full human and LLM CRAI annotation is provided for training and development. Data will be distributed via CodaLab after registration.
+</span></p>
+
+<p><b>Submission Format:</b>
+<span class="text-justify">Participants should submit a TSV file containing one scored instance per line. The file must include the following columns:
+</span></p>
+<ul style="font-size: 16px;" class="lists">
+  <li><b>id</b></li>
+  <li><b>CRAI_CEA</b> (Cultural Element Accuracy, 0-1)</li>
+  <li><b>CRAI_CC</b> (Contextual Coherence, 0-1)</li>
+  <li><b>CRAI_CS</b> (Cultural Specificity, 0-1)</li>
+  <li><b>CRAI_CI</b> (Cultural Integrity, 0-1)</li>
+  <li><b>CRAI_HP</b> (Hallucination Penalty, 0-1)</li>
+  <li><b>CRAI_composite</b> (weighted composite score, 0-1)</li>
+</ul>
+<p class="text-justify">The file should be uploaded to <a href="https://codalab.lisn.upsaclay.fr/competitions/YYYYYY">CodaLab</a>. Submissions will be automatically validated. Incomplete submissions will be flagged.</p>
+
+<p><b>Evaluation:</b>
+<span class="text-justify">Systems are ranked by Spearman correlation and mean absolute error (MAE) against human-annotated gold CRAI scores, at both overall and per-dimension levels. The composite CRAI score is computed as:
+</span></p>
+
+<p style="text-align:center;"><b>CRAI = 0.30·CEA + 0.20·CC + 0.20·CS + 0.20·CI − 0.10·HP</b></p>
+
+<p class="text-justify">Score bands: ≥0.85 highly accurate · 0.70–0.84 mostly accurate · 0.50–0.69 moderate · 0.30–0.49 weak · &lt;0.30 poor/misleading.</p>
+
+<hr>
+
+<p><b><u>Subtask B:</u></b> <span class="brand">Culturally Accurate Caption Generation</span></p>
+
+<p><b>Objective:</b>
+<span class="text-justify">Given a reference image of a Qatari cultural scene, participants must generate a culturally grounded English image caption designed to maximise the cultural accuracy of a downstream text-to-image model's output. This subtask targets prompt engineering and culturally grounded caption quality for Qatari settings.
+</span></p>
+
+<p><b>Dataset:</b>
+<span class="text-justify">Participants receive the same reference images as Subtask A, without the associated captions or generated images. The task is to produce captions that, when passed through a fixed text-to-image system, yield images that score as highly as possible on CRAI. The same 60/20/20 train/dev/test split applies. Data will be distributed via CodaLab after registration.
+</span></p>
+
+<p><b>Submission Format:</b>
+<span class="text-justify">Participants should submit a TSV file containing one caption per line. The file must include the following columns:
+</span></p>
+<ul style="font-size: 16px;" class="lists">
+  <li><b>id</b></li>
+  <li><b>caption</b></li>
+</ul>
+<p class="text-justify">The file should be uploaded to <a href="https://codalab.lisn.upsaclay.fr/competitions/YYYYYY">CodaLab</a>. Submissions will be automatically validated. Incomplete submissions will be flagged.</p>
+
+<p><b>Evaluation:</b>
+<span class="text-justify">Submitted captions are passed through a fixed text-to-image system; the resulting images are scored with CRAI. Per-caption scores are averaged across k generations (k will be specified at task launch). All submissions are evaluated within a single fixed time window using one API snapshot to control for non-determinism. Systems are ranked by mean CRAI score. Higher is better.
+</span></p>
+
 <br>
 <p class="brand"><b>Guidelines for Participating Teams</b></p>
 <p class="text-justify">
